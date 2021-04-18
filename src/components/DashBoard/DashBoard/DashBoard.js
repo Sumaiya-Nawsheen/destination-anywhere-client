@@ -19,7 +19,7 @@ const DashBoard = () => {
         fetch('http://localhost:5000/bookingsByEmail', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email: loggedInUser.email|| registeredUser.email})
+            body: JSON.stringify({ email: loggedInUser.email})
         })
             .then(res => res.json())
             .then(data => setBookings(data))

@@ -3,12 +3,12 @@ import { Form, FormControl, Nav, Navbar, NavDropdown, Button } from 'react-boots
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearchLocation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
-
+import Logo from '../../../images/logo.jpg'
 const NavBar = () => {
     return (
         <div>
            <Navbar bg="light" expand="lg">
-            <Navbar.Brand as={Link} to="home">Destination Anywhere</Navbar.Brand>
+            <Navbar.Brand as={Link} to="home"><img src={Logo} style={{height:'60px', width:'250px'}} alt=''/></Navbar.Brand>
                
  
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -18,14 +18,7 @@ const NavBar = () => {
       <Nav.Link as={Link} to="dashboard">Dashboard</Nav.Link>
       <Nav.Link as={Link} to="admin">Admin</Nav.Link>
       
-      <Nav.Link as={Link} to="hiking">Hiking</Nav.Link>
-      <NavDropdown title="Tours" id="basic-nav-dropdown">
-        <NavDropdown.Item as={Link} to="action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item as={Link} to="action/3.2" >Another action</NavDropdown.Item>
-        <NavDropdown.Item as={Link} to="action/3.3">Something</NavDropdown.Item>
-      </NavDropdown>
-      <Nav.Link as={Link} to="trekking" >Trekking</Nav.Link>
-      <Nav.Link as={Link} to="camping">Camping</Nav.Link>
+      <Nav.Link as={Link} to="/">Services</Nav.Link>
     </Nav>
    
     <Form inline>
@@ -38,7 +31,7 @@ const NavBar = () => {
                 </Link>
      </div>
       
-      <Button variant="outline-success">Book Destination</Button>
+      <Button as={Link} to="login" variant="outline-success">Book Destination</Button>
     </Form>
   </Navbar.Collapse>
 </Navbar> 

@@ -33,7 +33,8 @@ useEffect(() => {
         name: data.name,
         email: data.email,
         destination: data.destination,
-        expenses: data.expenses
+        expenses: data.expenses,
+        date:new Date()
         
     };
     console.log(eventData);

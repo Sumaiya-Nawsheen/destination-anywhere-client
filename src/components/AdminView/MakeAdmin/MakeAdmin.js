@@ -50,7 +50,7 @@ const MakeAdmin = () => {
 
                 <div className="col-md-8 col-xs-6 d-flex justify-content-center" style={{  backgroundColor: "#F4FDFB" }}>
                 <div>
-              <h2>Please give some review.</h2>
+              <h2>Add an new admin.</h2>
 
 <CardGroup style={{marginTop:'30px'}}>
   <Card>

@@ -9,7 +9,7 @@ import TopBanner from '../TopBanner/TopBanner';
 
 const Home = () => {
     return (
-        <div>
+        <div style={{backgroundColor:'skyblue'}}>
             <div style={{ height:'20%'}}>
             <NavBar/> 
             <TopBanner/>
