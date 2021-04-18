@@ -2,32 +2,32 @@ import React from 'react';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../../Shared/NavBar/NavBar';
 import ChooseDestination from '../ChooseDestination/ChooseDestination';
+import FetchAllServices from '../FetchAllServices/FetchAllServices';
 import Reviews from '../Reviews/Reviews';
-import Services from '../Services/Services';
 import Speciality from '../Speciality/Speciality';
 import TopBanner from '../TopBanner/TopBanner';
 
 const Home = () => {
     return (
         <div>
-            <div style={{ height:'800px'}}>
+            <div style={{ height:'20%'}}>
             <NavBar/> 
             <TopBanner/>
             </div>
-            <div style={{ height:'500px', border: '1px solid black'}}>
+            <div style={{ height:'17%', border: '1px solid black'}}>
                 <Speciality/>
             </div>
-            <div style={{ height:'500px', border: '1px solid black'}}>
-                <Services/>
+            <div style={{ height:'17%', border: '1px solid black'}}>
+                <FetchAllServices/>
             </div>
-            <div style={{ height:'400px', border: '1px solid black'}}>
+            <div style={{ height:'17%', border: '1px solid black'}}>
                 <ChooseDestination/>
             </div>
-            <div style={{ height:'400px', border: '1px solid black'}}>
+            <div style={{ height:'17%', border: '1px solid black'}}>
                 <Reviews/>
             </div>
             
-           <div style={{ height:'100px'}}>
+           <div style={{ height:'12%'}}>
            <Footer/>
            </div>
            

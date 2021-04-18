@@ -4,9 +4,17 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import AddService from "./components/AdminView/AddService/AddService";
+import MakeAdmin from "./components/AdminView/MakeAdmin/MakeAdmin";
 import DashBoard from "./components/DashBoard/DashBoard/DashBoard";
 import Home from "./components/Home/Home/Home";
 import Login from "./components/Login/Login";
+import ManageServices from "./components/AdminView/ManageServices/ManageServices";
+import OrderList from "./components/AdminView/OrderList/OrderList";
+import Booking from "./components/UserView/Booking/Booking";
+import BookingList from "./components/UserView/BookingList/BookingList";
+import UsersReview from "./components/UserView/UsersReview/UsersReview";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 
 
@@ -29,10 +37,11 @@ function App() {
     password2: '',
     photo: ''
   });
+  const [orderedItem, setOrderedItem] = useState([]);
 
   return (
     <div className="App">
-        <UserContext.Provider value={{ value1: [loggedInUser, setLoggedInUser], value2: [registeredUser, setRegisteredUser],value3: [newUser, setNewUser]}}>
+        <UserContext.Provider value={{ value1: [loggedInUser, setLoggedInUser], value2: [registeredUser, setRegisteredUser],value3: [newUser, setNewUser], value4: [orderedItem, setOrderedItem]}}>
         <Router>
         <Switch>
           <Route exact path="/">
@@ -44,8 +53,29 @@ function App() {
           <Route  path="/login">
             <Login/>
           </Route>
-          <Route  path="/dashboard">
+          <Route exact path="/dashboard">
             <DashBoard/>
+          </Route>
+          <PrivateRoute  path="/dashboard/booking/:id">
+           <Booking/>
+          </PrivateRoute>
+          <Route  path="/dashboard/bookingList">
+            <BookingList/>
+          </Route>
+          <Route  path="/dashboard/addService">
+            <AddService/>
+          </Route>
+          <Route  path="/dashboard/makeAdmin">
+            <MakeAdmin/>
+          </Route>
+          <Route  path="/dashboard/manageServices">
+            <ManageServices/>
+          </Route>
+          <Route  path="/dashboard/orderList">
+            <OrderList/>
+          </Route>
+          <Route  path="/dashboard/review">
+            <UsersReview></UsersReview>
           </Route>
         </Switch>
     </Router>

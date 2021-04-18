@@ -1,69 +1,44 @@
-import React from 'react';
-import { Card, CardDeck } from 'react-bootstrap';
+import { CircularProgress } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import {Container, Row } from 'react-bootstrap';
+import ReviewsMapping from '../ReviewsMapping/ReviewsMapping';
+import Services from '../Services/Services';
+
+
+
 
 const Reviews = () => {
-    return (
-        <div  className='text-center'>
-        <h6>REVIEW & TESTIMONIALS</h6> 
-        <h2>Top Reviews for Destination Anywhere?</h2>
-        <CardDeck>
-<Card>
- <Card.Img variant="top" src="holder.js/100px160" />
- <Card.Body>
-   <Card.Title>Card title</Card.Title>
-   <Card.Text>
-     This is a wider card with supporting text below as a natural lead-in to
-     additional content. This content is a little bit longer.
-   </Card.Text>
- </Card.Body>
- <Card.Footer>
-   <small className="text-muted">Last updated 3 mins ago</small>
- </Card.Footer>
-</Card>
-<Card>
- <Card.Img variant="top" src="holder.js/100px160" />
- <Card.Body>
-   <Card.Title>Card title</Card.Title>
-   <Card.Text>
-     This card has supporting text below as a natural lead-in to additional
-     content.{' '}
-   </Card.Text>
- </Card.Body>
- <Card.Footer>
-   <small className="text-muted">Last updated 3 mins ago</small>
- </Card.Footer>
-</Card>
-<Card>
- <Card.Img variant="top" src="holder.js/100px160" />
- <Card.Body>
-   <Card.Title>Card title</Card.Title>
-   <Card.Text>
-     This is a wider card with supporting text below as a natural lead-in to
-     additional content. This card has even longer content than the first to
-     show that equal height action.
-   </Card.Text>
- </Card.Body>
- <Card.Footer>
-   <small className="text-muted">Last updated 3 mins ago</small>
- </Card.Footer>
-</Card>
-<Card>
- <Card.Img variant="top" src="holder.js/100px160" />
- <Card.Body>
-   <Card.Title>Card title</Card.Title>
-   <Card.Text>
-     This is a wider card with supporting text below as a natural lead-in to
-     additional content. This content is a little bit longer.
-   </Card.Text>
- </Card.Body>
- <Card.Footer>
-   <small className="text-muted">Last updated 3 mins ago</small>
- </Card.Footer>
-</Card>
-</CardDeck>
+
+
+  
+  const [givenReviews, setGivenReviews] =useState([]);
+
+  useEffect(() => {
+      fetch('http://localhost:5000/showreviews')
+        .then(response => response.json())
+        .then(data => setGivenReviews(data))
+    }, [])
+
+  return (
+      <div className='text-center mb-3'>
+     <h6>REVIEW & TESTIMONIALS</h6> 
+         <h2>Top Reviews for Destination Anywhere?</h2>
+           {
+            givenReviews.length === 0 && <CircularProgress color="secondary" />
+          }
+           <Container style={{ width: "85%" }}>
+                  <Row sm={1} md={2} lg={3} style={{ display: "flex" }}>
+                  {
+            givenReviews.map(givenReview => 
+              <ReviewsMapping givenReview={givenReview} key={givenReview._id}></ReviewsMapping>)
+           
             
-        </div>
-    );
-};
+          }
+                  </Row>
+              </Container>
+          
+      </div>
+  );
+        };
 
 export default Reviews;

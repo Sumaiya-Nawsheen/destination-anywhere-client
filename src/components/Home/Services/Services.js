@@ -1,46 +1,30 @@
+import { Button } from 'react-bootstrap';
 import React from 'react';
-import { Card, CardDeck } from 'react-bootstrap';
+import { Card} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const Services = () => {
+const Services = ({service}) => {
     return (
         <div className='text-center'>
-        <h6 >MODERN & BEAUTIFUL</h6>
-        <h1>Our Most Popular Adventures</h1>
-        <CardDeck>
-<Card>
-<Card.Img variant="top" src="holder.js/100px160" />
-<Card.Body>
-  <Card.Title>Card title</Card.Title>
-  <Card.Text>
-    This is a wider card with supporting text below as a natural lead-in to
-    additional content. This content is a little bit longer.
-  </Card.Text>
-</Card.Body>
+    
 
-</Card>
-<Card>
-<Card.Img variant="top" src="holder.js/100px160" />
+        <div>
+        <Card style={{height:'480px',marginLeft:'15px', marginBottom:'10px'}}>
+<Card.Img style={{height:'200px'}} variant="top" src={service.imageURL} />
 <Card.Body>
-  <Card.Title>Card title</Card.Title>
-  <Card.Text>
-    This card has supporting text below as a natural lead-in to additional
-    content.{' '}
+  <Card.Title>{service.title} </Card.Title>
+  <Card.Text style={{height:'130px'}}>
+   {service.description}
   </Card.Text>
-</Card.Body>
-
-</Card>
-<Card>
-<Card.Img variant="top" src="holder.js/100px160" />
-<Card.Body>
-  <Card.Title>Card title</Card.Title>
   <Card.Text>
-    This is a wider card with supporting text below as a natural lead-in to
-    additional content. This card has even longer content than the first to
-    show that equal height action.
+   ${service.expenses}
   </Card.Text>
+  <Link to = {`/dashboard/booking/${service._id}`}><Button   variant="primary">
+  Book Hurry up!
+        </Button></Link>
 </Card.Body>
 </Card>
-</CardDeck>
+        </div>
             
         </div>
     );
