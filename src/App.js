@@ -53,10 +53,13 @@ function App() {
           <Route  path="/login">
             <Login/>
           </Route>
-          <Route exact path="/dashboard">
+          <PrivateRoute exact path="/dashboard">
             <DashBoard/>
-          </Route>
-          <PrivateRoute  path="/dashboard/booking/:id">
+          </PrivateRoute>
+          <PrivateRoute  path="/admin">
+            <DashBoard/>
+          </PrivateRoute>
+          <PrivateRoute  path="/dashboard/booking/:_id">
            <Booking/>
           </PrivateRoute>
           <Route  path="/dashboard/bookingList">

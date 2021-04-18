@@ -23,7 +23,7 @@ const UsersReview = () => {
         photo: loggedInUser.photo
     };
     console.log(eventData);
-    const url = `http://localhost:5000/addReview`;
+    const url = `https://mighty-mountain-22826.herokuapp.com/addReview`;
 
 
     fetch(url, {
@@ -64,11 +64,6 @@ const UsersReview = () => {
                         <input defaultValue={loggedInUser.name|| registeredUser.name} type="text"  id="formBasicEmail" name="name" ref={register({ required: true })} />
                         {errors.name && <span style={{ color: 'red' }}>Name is required</span>}
                     </Form.Group>
-
-                    {/* <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Image</Form.Label>
-                        <input defaultValue={loggedInUser.photo} type="text"  id="formBasicEmail" name="photo"  />
-                    </Form.Group> */}
                 
 
                 <Form.Group controlId="formBasicEmail">

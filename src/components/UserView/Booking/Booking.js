@@ -1,51 +1,70 @@
 import React, { useContext, useEffect } from 'react';
-import {  Card, CardGroup, Col, Form, Row } from 'react-bootstrap';
-import { useForm } from "react-hook-form";
-import { useParams } from 'react-router';
-import { UserContext } from '../../../App';
 import Sidebar from '../../Shared/Sidebar/Sidebar';
+import {  Button, Card, CardGroup, Col, Form, Row} from 'react-bootstrap';
+import { useForm } from "react-hook-form";
+import { UserContext } from '../../../App';
+import { useParams } from 'react-router';
 import PaymentProcess from '../PaymentProcess/PaymentProcess';
 
 
 
+const Booking = ({id}) => {
 
-const Booking = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
     const { value1, value2, value4 } = useContext(UserContext);
     const [loggedInUser, setLoggedInUser] = value1;
     const [registeredUser, setRegisteredUser] = value2;
     const [orderedItem, setOrderedItem] = value4;
 
-  //   const { _id } = useParams();
+const {_id} = useParams();
+console.log(_id)
 
-  //   console.log(_id)
-  //   useEffect(() => {
-  //     fetch(`http://localhost:5000/checkout/${_id}`)
-  //         .then(res => res.json())
-  //         .then(data => {
-  //             console.log(data)
-  //             setOrderedItem(data)
-  //         })
-  // }, [_id])
+useEffect(() => {
+  fetch(`http://localhost:5000/dashboard/booking/${_id}`)
+      .then(res => res.json())
+      .then(data => {
+          console.log(data)
+          setOrderedItem(data)
+      })
+}, [_id])
 
-    const handleBlur = (event) => {
-        console.log(event.target.value);
-    }
+    const onSubmit = data => {
+      const eventData = {
+        name: data.name,
+        email: data.email,
+        destination: data.destination,
+        expenses: data.expenses
+        
+    };
+    console.log(eventData);
+    const url = `http://localhost:5000/addBooking`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(eventData)
+
+    })
+        .then(res => console.log("server side response", res))
+};
+
+
+  
 
     return (
-
-      <section>
-      <div style={{
+        <section>
+        <div style={{
   backgroundColor: "#F4FDFB",
   height:"100%"
 }} className="container-fluid row">
-              <div className="col-md-4 col-xs-6">
-                  <Sidebar></Sidebar>
-              </div>
-              <div className="col-md-8 col-xs-6 d-flex justify-content-center" style={{ position: "absolute", right: 0, backgroundColor: "#F4FDFB" }}>
-              <div>
-              <h2>Please Confirm your Booking.</h2>
+                <div className="col-md-4 col-xs-6">
+                    <Sidebar/>
+                </div>
+
+                <div className="col-md-8 col-xs-6 d-flex justify-content-center" style={{  backgroundColor: "#F4FDFB" }}>
+                <div>
+                <h2>Please Confirm your Booking.</h2>
 
 <CardGroup style={{marginTop:'30px'}}>
   <Card>
@@ -53,29 +72,33 @@ const Booking = () => {
     <Form className="form-container" onSubmit={handleSubmit(onSubmit)}>
 
             <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Name</Form.Label>
-                        <input defaultValue={loggedInUser.name|| registeredUser.name} type="text" onBlur={handleBlur} id="formBasicEmail"  name="name" ref={register({ required: true })} />
+                        <Form.Label>Name</Form.Label><br/>
+                        <input defaultValue={loggedInUser.name|| registeredUser.name} type="text"  id="formBasicEmail" name="name" ref={register({ required: true })} />
                         {errors.name && <span style={{ color: 'red' }}>Name is required</span>}
                     </Form.Group>
                 
-
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <input defaultValue={loggedInUser.email || registeredUser.email} onBlur={handleBlur} type="email" id="formBasicEmail"  name="email" ref={register({ required: true })} />
+                    <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label><br/>
+                    <input defaultValue={loggedInUser.email || registeredUser.email}  type="email" id="formBasicEmail"  name="email" ref={register({ required: true })} />
                     {errors.email && <span style={{ color: 'red' }}>Email is required</span>}
                 </Form.Group>
 
-                <Form.Group controlId="formBasicAddress">
-                    <Form.Label>Tour Plan</Form.Label>
-                    <input placeholder="Destination" onBlur={handleBlur} type="text" id="formBasicAddress"  name="destination"  />
-            
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Tour Plan</Form.Label><br/>
+                    <input defaultValue={orderedItem.title}  type="text" id="formBasicAddress" className="form-control readonly" name="destination" ref={register({ required: true })} />
+                    {errors.destination && <span style={{ color: 'red' }}>destination is required</span>}
+                </Form.Group>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Expenses</Form.Label><br/>
+                    <input defaultValue={orderedItem.expenses}  type="text" id="formBasicAddress" className="form-control readonly" name="expenses" ref={register({ required: true })} />
+                    {errors.expenses && <span style={{ color: 'red' }}>expenses is required</span>}
                 </Form.Group>
                 <fieldset>
     <Form.Group>
-      <Form.Label as="legend" column sm={2}>
+      <Form.Label as="legend" column sm={4}>
        Pay with
       </Form.Label>
-      <Col sm={10} as={Row} >
+      <Col sm={8} as={Row} >
         <Form.Check
           type="radio"
           label="Credit Card"
@@ -92,9 +115,9 @@ const Booking = () => {
       </Col>
     </Form.Group>
   </fieldset>
-  <Form.Group>
-  
-                </Form.Group>
+                <Button variant="primary" type="submit">
+    Submit
+  </Button>
 </Form>
     </Card.Body>
   </Card>
@@ -102,16 +125,16 @@ const Booking = () => {
 <div className='mt-3'>
 <PaymentProcess/>
 </div>
-              </div>
-             
-              </div>
-             
-          </div>
-    </section>
 
-        
-        
+                </div>
+
+            </div>
+            </div>
+      </section>
+           
+       
     );
 };
 
 export default Booking;
+

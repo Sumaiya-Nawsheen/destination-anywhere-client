@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../../App';
 import Sidebar from '../../Shared/Sidebar/Sidebar';
 
 const BookingList = () => {
+
+    const { value1, value2, value4 } = useContext(UserContext);
+    const [loggedInUser, setLoggedInUser] = value1;
+    const [registeredUser, setRegisteredUser] = value2;
+    const [orderedItem, setOrderedItem] = value4;
+
     return (
 
         <section>

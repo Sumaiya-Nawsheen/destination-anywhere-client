@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../../App';
+import BookingsByEmail from '../../BookingsByEmail/BookingsByEmail';
 import Sidebar from '../../Shared/Sidebar/Sidebar';
 
 const containerStyle = {
-  backgroundColor: "#F4FDFB",
-  height:"100%"
+    backgroundColor: "#F4FDFB",
+    border: '1px solid red'
 }
-const DashBoard = () => {
-    return (
 
-      <section>
-        <div style={containerStyle} className="container-fluid row">
-                <div className="col-md-4 col-xs-6">
+const DashBoard = () => {
+  const { value1, value2 } = useContext(UserContext);
+  const [loggedInUser, setLoggedInUser] = value1;
+  const [registeredUser, setRegisteredUser] = value2;
+    const [bookings, setBookings] = useState([]);
+
+
+    useEffect(() => {
+        fetch('http://localhost:5000/bookingsByEmail', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ email: loggedInUser.email|| registeredUser.email})
+        })
+            .then(res => res.json())
+            .then(data => setBookings(data))
+    }, [])
+
+    return (
+        <section>
+            <div style={containerStyle} className="row">
+                <div className="col-md-4 col-sm-6 col-12">
                     <Sidebar></Sidebar>
                 </div>
-                <div className="col-md-8 col-xs-6 d-flex justify-content-center" style={{ position: "absolute", right: 0, backgroundColor: "#F4FDFB" }}>
-              
+               
+                <div className="col-md-8 col-sm-12 col-12">
+                    <BookingsByEmail bookings={bookings}></BookingsByEmail>
                 </div>
-                {/* <div className="col-md-5">
-                    <AppointmentsByDate appointments={appointments}></AppointmentsByDate>
-                </div> */}
             </div>
-      </section>
-    
-    
-
+        </section>
     );
 };
 

@@ -18,7 +18,7 @@ const AddService = () => {
             imageURL: imageURL,
             expenses: data.price
         };
-        const url = `http://localhost:5000/addService`;
+        const url = `https://mighty-mountain-22826.herokuapp.com/addService`;
 
 
         fetch(url, {
